@@ -52,6 +52,17 @@ HANGMANPICS = ['''
       |
 =========''']
 
+# check if guess is valid
+def IsValidGuess(guess: str):
+  if len(guess) > 1:
+    return False
+  
+  elif not guess.isalpha():
+    return False
+     
+  else:
+    return True
+
 # choose word from word_list
 chosen_word = random.choice(word_list.WORDLIST)
 
@@ -61,5 +72,10 @@ while True:
 
     word_length = len(chosen_word)
     print(*(["_"] * word_length), sep=" ")
+
+    # takes player guess
+    guessed_letter = input("Enter a letter to guess\n")
+    if not IsValidGuess(guessed_letter):
+       print("Please make valid guess.")  # implement details on why guess is invalid
 
     break
