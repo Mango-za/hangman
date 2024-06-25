@@ -112,12 +112,21 @@ while True:
       incorrect_guesses.append(guessed_letter)
 
       # print incorrect guess list
-      print(*(incorrect_guesses))
+      print(*incorrect_guesses)
       continue
 
     if not IsIncorrectGuess(guessed_letter):
       # add correct guess to list
       correct_guesses.append(guessed_letter)
 
-      
-      
+      # find all correct positions of guessed letter
+      for n in range(len(chosen_word)):
+        if guessed_letter == chosen_word[n]:
+          # replace blank space with guessed letter
+          del guess_spaces[n]
+          guess_spaces.insert(n, guessed_letter)
+
+      print(HANGMANPICS[6 - lives] + '\n')
+      print(*guess_spaces, sep=" ")
+      print(*incorrect_guesses)
+      continue
