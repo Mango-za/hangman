@@ -89,7 +89,8 @@ while True:
   print(HANGMANPICS[0] + '\n')
 
   word_length = len(chosen_word)
-  print(*(["_"] * word_length), sep=" ")
+  guess_spaces = ["_"] * word_length
+  print(*guess_spaces, sep=" ")
 
   while not game_over:
     # takes player guess
@@ -105,12 +106,18 @@ while True:
     if IsIncorrectGuess(guessed_letter):
       lives -= 1  # subtract life for incorrect guess
       print(HANGMANPICS[6 - lives] + '\n')
-      print(*(["_"] * word_length), sep=" ")
+      print(*guess_spaces, sep=" ")
 
       # add incorrect guess to list
       incorrect_guesses.append(guessed_letter)
 
       # print incorrect guess list
       print(*(incorrect_guesses))
+      continue
+
+    if not IsIncorrectGuess(guessed_letter):
+      # add correct guess to list
+      correct_guesses.append(guessed_letter)
+
       
       
