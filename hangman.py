@@ -61,18 +61,17 @@ def IsValidGuess(guess: str):
   else:
     return True
   
-# check if guess is incorrect  
+# check if guess is incorrect (or correct)  
 def IsIncorrectGuess(guess: str):
   for n in chosen_word:
     if n == guess:
       return False
   else:
-    return True
-    
+    return True    
   
 # check if guess is repeated
-def IsRepeatedGuess(guess: str, incorrect_list: list):
-  if guess in incorrect_list:
+def IsRepeatedGuess(guess: str, incorrect_list: list, correct_list: list):
+  if guess in incorrect_list or guess in correct_list:
     return True
   
 game_over = False
@@ -97,8 +96,9 @@ while True:
     guessed_letter = input("Enter a letter to guess\n")
     if not IsValidGuess(guessed_letter):
       print("Please make valid guess.")  # implement details on why guess is invalid
+      continue
     
-    if IsRepeatedGuess(guessed_letter, incorrect_guesses):
+    if IsRepeatedGuess(guessed_letter, incorrect_guesses, correct_guesses):
       print("This letter has already been guessed.")
       continue
 
