@@ -54,7 +54,7 @@ HANGMANPICS = ['''
 
 # check if guess is valid
 def IsValidGuess(guess: str):
-  if len(guess) > 1:
+  if len(guess) > 1 or len(guess) == 0:
     return False
   elif not guess.isalpha():
     return False
