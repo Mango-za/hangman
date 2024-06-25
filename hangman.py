@@ -74,6 +74,12 @@ def IsRepeatedGuess(guess: str, incorrect_list: list, correct_list: list):
   if guess in incorrect_list or guess in correct_list:
     return True
   
+# display game board
+def DisplayGameBoard(lives: int, guess_spaces: list, incorrect_guesses: list):
+  print(HANGMANPICS[6 - lives])
+  print(*guess_spaces, sep=' ')
+  print(*incorrect_guesses, sep=', ')
+  
 game_over = False
 incorrect_guesses = []
 correct_guesses = []
@@ -86,11 +92,10 @@ while True:
   lives = 6
 
   # print game board
-  print(HANGMANPICS[0] + '\n')
-
   word_length = len(chosen_word)
   guess_spaces = ["_"] * word_length
-  print(*guess_spaces, sep=" ")
+
+  DisplayGameBoard(lives, guess_spaces, incorrect_guesses)
 
   while not game_over:
     # takes player guess
@@ -105,14 +110,12 @@ while True:
 
     if IsIncorrectGuess(guessed_letter):
       lives -= 1  # subtract life for incorrect guess
-      print(HANGMANPICS[6 - lives] + '\n')
-      print(*guess_spaces, sep=" ")
 
       # add incorrect guess to list
       incorrect_guesses.append(guessed_letter)
 
       # print incorrect guess list
-      print(*incorrect_guesses)
+      DisplayGameBoard(lives, guess_spaces, incorrect_guesses)
       continue
 
     if not IsIncorrectGuess(guessed_letter):
@@ -126,7 +129,5 @@ while True:
           del guess_spaces[n]
           guess_spaces.insert(n, guessed_letter)
 
-      print(HANGMANPICS[6 - lives] + '\n')
-      print(*guess_spaces, sep=" ")
-      print(*incorrect_guesses)
+      DisplayGameBoard(lives, guess_spaces, incorrect_guesses)
       continue
