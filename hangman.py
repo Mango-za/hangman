@@ -79,12 +79,13 @@ def DisplayGameBoard(lives: int, guess_spaces: list, incorrect_guesses: list):
   print(HANGMANPICS[6 - lives])
   print(*guess_spaces, sep=' ')
   print(*incorrect_guesses, sep=', ')
-  
-game_over = False
-incorrect_guesses = []
-correct_guesses = []
 
 while True:
+
+  game_over = False
+  incorrect_guesses = []
+  correct_guesses = []
+
   # choose word from word_list
   chosen_word = random.choice(word_list.WORDLIST)
 
@@ -98,6 +99,21 @@ while True:
   DisplayGameBoard(lives, guess_spaces, incorrect_guesses)
 
   while not game_over:
+
+    # display losing game over screen
+    if lives == 0:
+      play_again = input(f'''GAME OVER
+
+The word was: {chosen_word}
+Would you like to play again? (Y/N)\n''')
+      
+      # ask if user would like to play again
+      if play_again.upper() == 'Y':
+        break
+      elif play_again.upper() == 'N':
+        game_over = True
+        break
+
     # takes player guess
     guessed_letter = input("Enter a letter to guess\n")
     if not IsValidGuess(guessed_letter):
@@ -126,8 +142,10 @@ while True:
       for n in range(len(chosen_word)):
         if guessed_letter == chosen_word[n]:
           # replace blank space with guessed letter
-          del guess_spaces[n]
-          guess_spaces.insert(n, guessed_letter)
+          guess_spaces[n] = guessed_letter
 
       DisplayGameBoard(lives, guess_spaces, incorrect_guesses)
       continue
+  
+  if game_over:
+    break
