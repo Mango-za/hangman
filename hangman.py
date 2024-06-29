@@ -100,14 +100,25 @@ while True:
 
   while not game_over:
 
-    # display losing game over screen
+    # display game over screen (loss)
     if lives == 0:
       play_again = input(f'''GAME OVER
-
+                         
 The word was: {chosen_word}
 Would you like to play again? (Y/N)\n''')
       
       # ask if user would like to play again
+      if play_again.upper() == 'Y':
+        break
+      elif play_again.upper() == 'N':
+        game_over = True
+        break
+
+    elif not '_' in guess_spaces:
+      play_again = input(f'''WELL DONE!
+
+Would you like to play again? (Y/N)\n''')
+      
       if play_again.upper() == 'Y':
         break
       elif play_again.upper() == 'N':
